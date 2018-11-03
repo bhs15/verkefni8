@@ -13,26 +13,33 @@ const text = (() => {
   function init(_form, _items) {
     items = _items;
     _form.addEventListener('submit', formHandler);
+  
 
     // TODO láta hluti í _items virka
+   
+    let elem = items.querySelectorAll('.item');
+
+    elem.forEach(function(element) {
+      let btn = element.getElementsByClassName("item__button")[0];
+      //let bton = element.getElementsByClassName('item__button')[0];
+      btn.addEventListener('click', deleteItem);
+    });
   }
 
   function formHandler(e) {
     e.preventDefault();
 
-    let texti = document.getElementsByClassName("form__input")[0].value;
-    
+    // hér bætir inn texta af inntaki og fl ves. 
+    let texti = document.getElementsByClassName("form__input")[0].value; 
     texti = texti.trim();
 
     let l = texti['length'];
-    
-    console.log(texti + "length : " + l);
+    // console.log(texti + "length : " + l);
     if (l > 0){
       add(texti);
       // ÞAÐ VIRKARR !!! EEEEEE
 
-      console.log('halló heimur ' + texti);
-       
+      // console.log('halló heimur ' + texti);
     }
     document.getElementsByClassName("form__input")[0].value = "";
   }
@@ -62,8 +69,9 @@ const text = (() => {
   }
 
   // event handler til að eyða færslu
-  function deleteItem(e) {
+  function deleteItem(e){
     console.log("ef ytt a eyða, eyða faerslu");
+    //console.log("e = " + e);
   }
 
   // hjálparfall til að útbúa element
@@ -81,6 +89,7 @@ const text = (() => {
     let butt = document.createElement("button");
     butt.setAttribute("class","item__button");
     butt.innerHTML = "Eyða"; 
+    butt.addEventListener('click', deleteItem);
     
     let ele = document.createElement("li");
     
