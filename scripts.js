@@ -22,18 +22,19 @@ const text = (() => {
 
     let texti = document.getElementsByClassName("form__input")[0].value;
     
+    texti = texti.trim();
 
     let l = texti['length'];
     
     console.log(texti + "length : " + l);
     if (l > 0){
-    add(texti);
+      add(texti);
       // ÞAÐ VIRKARR !!! EEEEEE
 
       console.log('halló heimur ' + texti);
-    
-      document.getElementsByClassName("form__input")[0].value = ""; 
+       
     }
+    document.getElementsByClassName("form__input")[0].value = "";
   }
 
 
