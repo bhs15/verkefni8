@@ -23,6 +23,20 @@ const text = (() => {
       let btn = element.getElementsByClassName("item__button")[0];
       //let bton = element.getElementsByClassName('item__button')[0];
       btn.addEventListener('click', deleteItem);
+
+      let chb = element.getElementsByClassName("item__checkbox")[0];
+      chb.addEventListener('click', finish);
+
+      let edt = element.getElementsByClassName("item__text")[0];
+      edt.addEventListener('click', edit);
+
+      edt.addEventListener('keydown', event => {
+        if (event.key == ENTER_KEYCODE) {
+          commit;
+          console.log("ooky spooky");
+        }
+      });
+
     });
   }
 
@@ -48,11 +62,23 @@ const text = (() => {
   // event handler fyrir það að klára færslu
   function finish(e) {
     console.log("ef ytt, strika yfir");
+    let blu = e.target.parentElement;
+    // console.log(blu);
+    if (blu.className == "item item--done"){
+      blu.className = "item";
+    }
+    else {
+      blu.className = "item item--done";
+    }
+    // ÞETTA VIRRRKARRR!!! 10 sek partipása
+
   }
 
   // event handler fyrir það að breyta færslu
   function edit(e) {
-    console.log("ef ytt, leyfa breytingar a faerslu");
+    console.log("ef ytt, leyfa breytingar a faerslu " + e.target); 
+    e.target.className = "item__edit"; 
+    //<span class="item__text">Klára verkefni</span> ==> <input class="item__edit" type="text">
   }
 
   // event handler fyrir það að klára að breyta færslu
