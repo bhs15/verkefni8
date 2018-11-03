@@ -21,10 +21,19 @@ const text = (() => {
     e.preventDefault();
 
     let texti = document.getElementsByClassName("form__input")[0].value;
+    
 
+    let l = texti['length'];
+    
+    console.log(texti + "length : " + l);
+    if (l > 0){
     add(texti);
-    /* Event */
-    console.log('halló heimur ' + texti);
+      // ÞAÐ VIRKARR !!! EEEEEE
+
+      console.log('halló heimur ' + texti);
+    
+      document.getElementsByClassName("form__input")[0].value = ""; 
+    }
   }
 
 
@@ -45,7 +54,7 @@ const text = (() => {
 
   // fall sem sér um að bæta við nýju item
   function add(value) {
-    console.log("add value");
+    // console.log("add value");
     items.appendChild(el(value, "checkbox", "deleteItem")); 
     // items.push(?);
     //Hreinsa glugga eftir að búið er að ýta
