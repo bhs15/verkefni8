@@ -20,31 +20,67 @@ const text = (() => {
   function formHandler(e) {
     e.preventDefault();
 
-    console.log('halló heimur');
+    let texti = document.getElementsByClassName("form__input")[0].value;
+
+    add(texti);
+    /* Event */
+    console.log('halló heimur ' + texti);
   }
+
 
   // event handler fyrir það að klára færslu
   function finish(e) {
+    console.log("ef ytt, strika yfir");
   }
 
   // event handler fyrir það að breyta færslu
   function edit(e) {
+    console.log("ef ytt, leyfa breytingar a faerslu");
   }
 
   // event handler fyrir það að klára að breyta færslu
   function commit(e) {
+    console.log("ef ytt a enter, vista breytta faerslu");
   }
 
   // fall sem sér um að bæta við nýju item
   function add(value) {
+    console.log("add value");
+    items.appendChild(el(value, "checkbox", "deleteItem")); 
+    // items.push(?);
+    //Hreinsa glugga eftir að búið er að ýta
   }
 
   // event handler til að eyða færslu
   function deleteItem(e) {
+    console.log("ef ytt a eyða, eyða faerslu");
   }
 
   // hjálparfall til að útbúa element
-  function el(type, className, clickHandler) {
+  function el(value, className, clickHandler) {
+    
+
+    let inpu = document.createElement("input");
+    inpu.setAttribute("class","item__checkbox");
+    inpu.setAttribute("type", "checkbox");
+    
+    let spam = document.createElement("span");
+    spam.setAttribute("class", "item__text");
+    spam.innerHTML = value;
+    
+    let butt = document.createElement("button");
+    butt.setAttribute("class","item__button");
+    butt.innerHTML = "Eyða"; 
+    
+    let ele = document.createElement("li");
+    
+    ele.appendChild(inpu);
+    ele.appendChild(spam);
+    ele.appendChild(butt);
+    
+    ele.setAttribute("class","item");
+    
+    return ele;
   }
 
   return {
