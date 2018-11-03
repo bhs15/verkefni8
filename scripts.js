@@ -14,8 +14,6 @@ const text = (() => {
     items = _items;
     _form.addEventListener('submit', formHandler);
   
-
-    // TODO láta hluti í _items virka
    
     let elem = items.querySelectorAll('.item');
 
@@ -43,7 +41,6 @@ const text = (() => {
   function formHandler(e) {
     e.preventDefault();
 
-    // hér bætir inn texta af inntaki og fl ves. 
     let texti = document.getElementsByClassName("form__input")[0].value; 
     texti = texti.trim();
 
@@ -61,7 +58,7 @@ const text = (() => {
 
   // event handler fyrir það að klára færslu
   function finish(e) {
-    console.log("ef ytt, strika yfir");
+    // console.log("ef ytt, strika yfir");
     let blu = e.target.parentElement;
     // console.log(blu);
     if (blu.className == "item item--done"){
@@ -78,7 +75,9 @@ const text = (() => {
   function edit(e) {
     console.log("ef ytt, leyfa breytingar a faerslu " + e.target); 
     e.target.className = "item__edit"; 
+    
     //<span class="item__text">Klára verkefni</span> ==> <input class="item__edit" type="text">
+  
   }
 
   // event handler fyrir það að klára að breyta færslu
@@ -90,16 +89,36 @@ const text = (() => {
   function add(value) {
     // console.log("add value");
     items.appendChild(el(value, "checkbox", "deleteItem")); 
-    // items.push(?);
-    //Hreinsa glugga eftir að búið er að ýta
+    
   }
 
   // event handler til að eyða færslu
   function deleteItem(e){
     console.log("ef ytt a eyða, eyða faerslu");
     //console.log("e = " + e);
+    let bleu = e.target.parentElement;
+    console.log(bleu);
+    let pem = findIndex(bleu);
+    console.log(pem);
+
   }
 
+  function findIndex(elm){
+    let intdexe = 0; 
+    let iArray = items.getElementsByClassName("items");
+    
+    for(let i in iArray){
+      console.log("item = " + i);
+      //let k = i.getElementsByClassName("item__text")[0];
+      let m = elm.getElementsByClassName("item__text")[0];
+
+      //if(k.value == m.value){
+      //  return intdexe;
+      //}
+      intdexe++;
+    }
+    return intdexe;
+  }
   // hjálparfall til að útbúa element
   function el(value, className, clickHandler) {
     
