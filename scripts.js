@@ -19,7 +19,6 @@ const text = (() => {
 
     elem.forEach(function(element) {
       let btn = element.getElementsByClassName("item__button")[0];
-      //let bton = element.getElementsByClassName('item__button')[0];
       btn.addEventListener('click', deleteItem);
 
       let chb = element.getElementsByClassName("item__checkbox")[0];
@@ -27,13 +26,6 @@ const text = (() => {
 
       let edt = element.getElementsByClassName("item__text")[0];
       edt.addEventListener('click', edit);
-
-      edt.addEventListener('keydown', event => {
-        if (event.key == ENTER_KEYCODE) {
-          commit;
-          console.log("ooky spooky");
-        }
-      });
 
     });
   }
@@ -73,16 +65,33 @@ const text = (() => {
 
   // event handler fyrir það að breyta færslu
   function edit(e) {
-    console.log("ef ytt, leyfa breytingar a faerslu " + e.target); 
-    e.target.className = "item__edit"; 
-    
-    //<span class="item__text">Klára verkefni</span> ==> <input class="item__edit" type="text">
-  
+    //console.log("ef ytt, leyfa breytingar a faerslu " + e.target); 
+    const text = e.target.textContent; 
+    let fjarl = e.target.parentNode;
+    let hopp = fjarl.parentNode;
+    //console.log(text + " " + fjarl);
+    let framam = fjarl.nextSibling;
+    fjarl.parentElement.removeChild(fjarl);
+    hopp.insertBefore(beta(text), framam);
+    //Fyrrihelmingur virkar
+    let foc = document.getElementsByClassName("item__edit")[0];
+    foc.focus();
   }
 
   // event handler fyrir það að klára að breyta færslu
   function commit(e) {
-    console.log("ef ytt a enter, vista breytta faerslu");
+    //console.log("ef ytt a enter, vista breytta faerslu");
+    //console.log(e.target);
+    let texxti = e.target.parentNode.getElementsByClassName("item__edit")[0].value;
+    //console.log(texxti);
+
+    let fjarl = e.target.parentNode;
+    let hopp = fjarl.parentNode;
+    //console.log(text + " " + fjarl);
+    let framam = fjarl.nextSibling;
+    fjarl.parentElement.removeChild(fjarl);
+    hopp.insertBefore(el(texxti, "checkbox", "deleteItem"), framam);
+    
   }
 
   // fall sem sér um að bæta við nýju item
@@ -94,31 +103,45 @@ const text = (() => {
 
   // event handler til að eyða færslu
   function deleteItem(e){
-    console.log("ef ytt a eyða, eyða faerslu");
+    //console.log("ef ytt a eyða, eyða faerslu");
     //console.log("e = " + e);
     let bleu = e.target.parentElement;
-    console.log(bleu);
-    let pem = findIndex(bleu);
-    console.log(pem);
+    //console.log(bleu);
+    bleu.parentNode.removeChild(bleu);
 
   }
-
-  function findIndex(elm){
-    let intdexe = 0; 
-    let iArray = items.getElementsByClassName("items");
+  function beta(e) {
+    let inpu = document.createElement("input");
+    inpu.setAttribute("class","item__checkbox");
+    inpu.setAttribute("type", "checkbox");
     
-    for(let i in iArray){
-      console.log("item = " + i);
-      //let k = i.getElementsByClassName("item__text")[0];
-      let m = elm.getElementsByClassName("item__text")[0];
+    let betaaa = document.createElement("input");
+    betaaa.setAttribute("class", "item__edit");
+    betaaa.value = e; 
 
-      //if(k.value == m.value){
-      //  return intdexe;
-      //}
-      intdexe++;
-    }
-    return intdexe;
+    betaaa.addEventListener('keydown', function(event) {  
+      if (event.keyCode == ENTER_KEYCODE){
+        commit(event);
+      } 
+    });
+    
+
+    let butt = document.createElement("button");
+    butt.setAttribute("class","item__button");
+    butt.innerHTML = "Eyða"; 
+    butt.addEventListener('click', deleteItem);
+
+    let ele = document.createElement("li");
+
+    ele.appendChild(inpu);
+    ele.appendChild(betaaa);
+    ele.appendChild(butt);
+
+    ele.setAttribute("class", "item");
+    
+    return ele; 
   }
+
   // hjálparfall til að útbúa element
   function el(value, className, clickHandler) {
     
@@ -127,9 +150,13 @@ const text = (() => {
     inpu.setAttribute("class","item__checkbox");
     inpu.setAttribute("type", "checkbox");
     
+    inpu.addEventListener('click', finish);
+    
     let spam = document.createElement("span");
     spam.setAttribute("class", "item__text");
     spam.innerHTML = value;
+
+    spam.addEventListener('click', edit); 
     
     let butt = document.createElement("button");
     butt.setAttribute("class","item__button");
@@ -151,3 +178,5 @@ const text = (() => {
     init: init
   }
 })();
+
+// ALLT VIRKAAR VAHÚ
